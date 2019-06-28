@@ -1,0 +1,58 @@
+package com.zz.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.github.pagehelper.PageInfo;
+import com.zz.dto.UserDto;
+import com.zz.pojo.User;
+import com.zz.service.IUserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	@Autowired
+	private IUserService userService;
+
+	@RequestMapping("/query")
+	public String query(Model m) {
+		m.addAttribute("list", userService.query(null));
+		return "user/user";
+	}
+
+	@RequestMapping("/queryPage")
+	public String queryPage(Model m, UserDto dto) {
+		PageInfo<User> pageInfo = userService.queryUserByPage(dto);
+		m.addAttribute("pageModel", pageInfo);
+		return "user/user";
+	}
+
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Integer userId, Model m) {
+		m.addAttribute("roles", userService.queryRole());
+		if (userId != null) {
+			UserDto dto = userService.getUpdateInfo(userId);
+			m.addAttribute("dto", dto);
+		}
+		return "user/update_user";
+	}
+
+	@RequestMapping("/saveAddOrUpdate")
+	public String saveAddOrUpdate(UserDto dto) {
+		if (dto != null && dto.getUser() != null && dto.getUser().getUserId() != null) {
+			userService.updateUserAndRole(dto);
+		} else {
+			userService.saveUserAndRole(dto);
+		}
+		return "redirect:/user/queryPage";
+	}
+
+	@RequestMapping("/delete")
+	public String deleteUser(Integer userId) {
+		userService.deleteUser(userId);
+		return "redirect:/user/queryPage";
+	}
+
+}

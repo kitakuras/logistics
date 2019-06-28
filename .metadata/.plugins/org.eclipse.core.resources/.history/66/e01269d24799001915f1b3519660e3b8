@@ -1,0 +1,30 @@
+package com.zz.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.zz.common.Constant;
+import com.zz.dto.CustomerDto;
+import com.zz.pojo.User;
+import com.zz.service.ICustomerService;
+import com.zz.service.IOrderService;
+import com.zz.service.IUserService;
+@Service
+public class OrderServiceImpl implements IOrderService {
+
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private ICustomerService customerService;
+	@Override
+	public void getAddOrUpdateInfo(Model m, Integer orderId) {
+		// TODO Auto-generated method stub
+		List<User> roles = userService.queryRole(Constant.ROLE_YWY);
+		List<CustomerDto> customers = customerService.query(null);
+
+	}
+
+}

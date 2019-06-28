@@ -1,0 +1,17 @@
+package com.zz.service.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.zz.service.IOrderService;
+@Service
+public class OrderServiceImpl implements IOrderService {
+
+	private 
+	@Override
+	public void getAddOrUpdateInfo(Model m, Integer orderId) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

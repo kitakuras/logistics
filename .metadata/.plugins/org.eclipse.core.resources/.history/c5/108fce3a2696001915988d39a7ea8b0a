@@ -1,0 +1,35 @@
+package com.zz.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.dto.UserDto;
+import com.zz.service.IUserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	@Autowired
+	private IUserService userService;
+
+	@RequestMapping("/query")
+	public String query(Model m) {
+		m.addAttribute("list", userService.query());
+		return "user/user";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Model m) {
+		m.addAttribute("roles",userService.queryRole());
+		return "user/update_user";
+	}
+	
+	@RequestMapping("/saveAddOrUpdate")
+	public String saveAddOrUpdate(UserDto dto) {
+		
+		return "redirect:/user/query";
+	}
+
+}

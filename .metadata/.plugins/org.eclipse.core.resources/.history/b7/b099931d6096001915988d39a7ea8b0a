@@ -1,0 +1,53 @@
+package com.zz.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.dto.UserDto;
+import com.zz.pojo.Role;
+import com.zz.service.IRoleService;
+
+@Controller
+@RequestMapping("/role")
+public class RoleController {
+
+	@Autowired
+	private IRoleService roleSerivce;
+
+	@RequestMapping("/query")
+	public String query(Model m){
+		List<Role> list = roleSerivce.query();
+		m.addAttribute("list", list);
+		return "role/role";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Integer userId,Model m) {
+		m.addAttribute("roles",roleSerivce.queryRole());
+		if (userId != null) {
+			UserDto dto = roleSerivce.getUpdateInfo(userId);
+			m.addAttribute("dto",dto);
+		}
+		return "user/update_user";
+	}
+	
+	@RequestMapping("/saveAddOrUpdate")
+	public String saveAddOrUpdate(UserDto dto) {
+		if (dto != null && dto.getUser() !=null && dto.getUser().getUserId() !=null) {
+			roleSerivce.updateUserAndRole(dto);
+		}else {
+			roleSerivce.saveUserAndRole(dto);
+		}
+		return "redirect:/user/query";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(Integer roleId){
+		roleSerivce.deleteRole(roleId);
+		return "redirect:/role/query";
+	}
+}

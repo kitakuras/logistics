@@ -1,0 +1,32 @@
+package com.zz.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.pojo.BasicData;
+import com.zz.service.IBasicDataService;
+
+@Controller
+@RequestMapping("/basicdata")
+public class BasicDataController {
+
+	@Autowired
+	private IBasicDataService basicDataService;
+
+	@RequestMapping("/query")
+	public String query(BasicData bd, Model m) {
+		m.addAttribute("list", basicDataService.query(bd));
+		return "basicdata/basicdata";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Model m) {
+		List<BasicData> parents = basicDataService.queryParentData();
+		m.addAttribute("parents", parents);
+		return "basicdata/update_basicdata";
+	}
+}

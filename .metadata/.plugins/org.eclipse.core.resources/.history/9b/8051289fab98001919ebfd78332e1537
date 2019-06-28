@@ -1,0 +1,12 @@
+package com.zz.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.service.ICustomerService;
+
+@RequestMapping("/customer")
+public class CustomerController {
+
+	@RequestMapping("/query")
+	private ICustomerService customerService;
+}

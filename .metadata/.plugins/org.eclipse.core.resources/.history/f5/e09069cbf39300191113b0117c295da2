@@ -1,0 +1,12 @@
+package com.zz.service;
+
+import java.util.List;
+
+import com.zz.pojo.Role;
+
+public interface IRolsService {
+
+	public List<Role> query();
+	
+	public Integer addRole
+}

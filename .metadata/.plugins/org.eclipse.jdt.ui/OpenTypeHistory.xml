@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=logistics-manager-service/src\/main\/java&lt;com.zz.service{IRoleService.java[IRoleService" modifiers="513" timestamp="1561624358853"/>
+<typeInfo handle="=logistics-manager-service/C:\/Program Files\/Java\/jdk1.8.0_201\/jre\/lib\/rt.jar&lt;org.omg.CORBA(IRObject.class[IRObject" modifiers="1537" timestamp="1551065763877"/>
+<typeInfo handle="=logistics-manager-service/C:\/Users\/Administrator\/.m2\/repository\/org\/apache\/shiro\/shiro-core\/1.2.3\/shiro-core-1.2.3.jar&lt;org.apache.shiro.subject(Subject.class[Subject" modifiers="1537" timestamp="1561089696570"/>
+<typeInfo handle="=logistics-manager-service/C:\/Users\/Administrator\/.m2\/repository\/org\/apache\/shiro\/shiro-web\/1.2.3\/shiro-web-1.2.3.jar&lt;org.apache.shiro.web.filter.authc(FormAuthenticationFilter.class[FormAuthenticationFilter" modifiers="33" timestamp="1561089697183"/>
+<typeInfo handle="=logistics-manager-service/src\/main\/java&lt;com.zz.service{IBasicDataService.java[IBasicDataService" modifiers="513" timestamp="1561623148469"/>
+<typeInfo handle="=logistics-manager-service/src\/main\/java&lt;com.zz.service{ICustomerService.java[ICustomerService" modifiers="513" timestamp="1561637562792"/>
+</typeInfoHistroy>

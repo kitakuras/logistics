@@ -1,0 +1,36 @@
+package com.zz.service.impl;
+
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.zz.common.Constant;
+import com.zz.dto.CustomerDto;
+import com.zz.mapper.CustomerMapper;
+import com.zz.pojo.Customer;
+import com.zz.pojo.CustomerExample;
+import com.zz.pojo.User;
+import com.zz.service.ICustomerService;
+
+public class CustomerServiceImpl implements ICustomerService {
+
+	@Autowired
+	private CustomerMapper customerMapper;
+
+	@Override
+	public List<CustomerDto> query(Customer customer) {
+		CustomerExample example = new CustomerExample();
+		Subject subject = SecurityUtils.getSubject();
+		User user = (User) subject.getPrincipal();
+		if (subject.hasRole(Constant.ROLE_YWY)) {
+			example.createCriteria().andUserIdEqualTo(user.getUserId());
+			return customerMapper.selectByExample(example);
+		} else if (subject.hasRole(Constant.ROLE_ADMIN)||subject.hasRole(Constant.ROLE_CZY)) {
+			return customerMapper.selectByExample(example);
+		}
+		return null;
+	}
+
+}

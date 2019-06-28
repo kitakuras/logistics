@@ -1,0 +1,11 @@
+package com.zz.service;
+
+import java.util.List;
+
+import com.zz.dto.CustomerDto;
+import com.zz.pojo.Customer;
+
+public interface ICustomerService {
+
+	public List<CustomerDto> query(Customer customer);
+}

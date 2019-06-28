@@ -1,0 +1,150 @@
+package com.zz.service.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zz.dto.UserDto;
+import com.zz.mapper.UserMapper;
+import com.zz.pojo.Role;
+import com.zz.pojo.User;
+import com.zz.pojo.UserExample;
+import com.zz.pojo.UserExample.Criteria;
+import com.zz.service.IRoleService;
+import com.zz.service.IUserService;
+
+@Service
+public class UserServiceImpl implements IUserService {
+
+	@Autowired
+	private UserMapper userMapper;
+	@Autowired
+	private IRoleService roleService;
+
+	@Override
+	public List<User> query(User user) {
+		UserExample example = new UserExample();
+		if (user != null) {
+			Criteria criteria = example.createCriteria();
+			if (user.getUserName() != null && !"".equals(user.getUserName())) {
+				criteria.andUserNameEqualTo(user.getUserName());
+			}
+		}
+
+		return userMapper.selectByExample(example);
+	}
+
+	@Override
+	public Integer addUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.insertSelective(user);
+	}
+
+	@Override
+	public Integer updateUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	public Integer deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+		this.deleteUserAndRoleByUserId(id);
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public User queryById(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Role> queryRole() {
+		// TODO Auto-generated method stub
+		return roleService.query();
+	}
+
+	@Override
+	public Integer saveUserAndRole(UserDto dto) {
+		// TODO Auto-generated method stub
+		User user = dto.getUser();
+		String salt = UUID.randomUUID().toString();
+		user.setPassword((new Md5Hash(user.getPassword(), salt, 1024)).toString());
+		user.setU1(salt);
+		this.addUser(user);
+		List<Integer> ids = dto.getRoleIds();
+		if (ids != null && ids.size() > 0) {
+			for (Integer roleId : ids) {
+				this.saveUserIdAndRoleId(user.getUserId(), roleId);
+			}
+		}
+		return 1;
+	}
+
+	public void saveUserIdAndRoleId(Integer userId, Integer roleId) {
+		// TODO Auto-generated method stub
+		userMapper.saveUserIdAndRoleId(userId, roleId);
+	}
+
+	@Override
+	public List<Role> queryRoleByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return roleService.queryRoleByUserId(userId);
+	}
+
+	@Override
+	public UserDto getUpdateInfo(Integer userId) {
+		// TODO Auto-generated method stub
+		User user = this.queryById(userId);
+		List<Role> roles = this.queryRoleByUserId(userId);
+		UserDto dto = new UserDto();
+		dto.setUser(user);
+		dto.setRoles(roles);
+		return dto;
+	}
+
+	@Override
+	public void updateUserAndRole(UserDto dto) {
+		// TODO Auto-generated method stub
+		User user = dto.getUser();
+		this.updateUser(user);
+		this.deleteUserAndRoleByUserId(user.getUserId());
+		List<Integer> ids = dto.getRoleIds();
+		if (ids != null && ids.size() > 0) {
+			for (Integer roleId : ids) {
+				this.saveUserIdAndRoleId(user.getUserId(), roleId);
+			}
+		}
+	}
+
+	public void deleteUserAndRoleByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		userMapper.deleteUserAndRoleByUserId(userId);
+	}
+
+	@Override
+	public PageInfo<User> queryUserByPage(UserDto dto) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
+		List<User> list = this.query(null);
+		PageInfo<User> pageInfo = new PageInfo<>(list);
+		return pageInfo;
+	}
+
+	@Override
+	public List<User> queryRole(String roleYwy) {
+		// TODO Auto-generated method stub
+		Role role = roleService.queryByName(roleYwy);
+		if (role != null) {
+			return userMapper.selectUserByRoleId(role.getRoleId());
+		}
+		return null;
+	}
+
+}

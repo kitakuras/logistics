@@ -1,0 +1,21 @@
+package com.zz.service;
+
+import java.util.List;
+
+import com.zz.pojo.Role;
+import com.zz.service.impl.Model;
+
+public interface IRoleService {
+
+	public List<Role> query();
+	
+	public Integer addRole(Role role);
+	
+	public Integer updateRole(Role role);
+	
+	public Integer deleteRole(Integer id);
+	
+	public Role queryById(Integer id);
+	
+	public void getUpdateUserInfo(Integer id,Model model);
+}

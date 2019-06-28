@@ -1,0 +1,10 @@
+package com.zz.dto;
+
+import java.util.List;
+
+import com.zz.pojo.User;
+
+public class UserDto extends User{
+
+	private List<Integer> roleIds;
+}

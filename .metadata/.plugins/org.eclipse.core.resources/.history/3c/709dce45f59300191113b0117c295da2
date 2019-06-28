@@ -1,0 +1,23 @@
+package com.zz.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.pojo.Role;
+import com.zz.service.IRoleService;
+
+@Controller
+@RequestMapping("/role")
+public class RoleController {
+
+	@Autowired
+	private IRoleService roleSerivce;
+
+	@RequestMapping("/query")
+	public List<Role> query(){
+		return roleSerivce.query()
+	}
+}

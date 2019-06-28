@@ -1,0 +1,40 @@
+package com.zz.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.dto.CustomerDto;
+import com.zz.pojo.Customer;
+import com.zz.service.ICustomerService;
+
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+
+	@Autowired
+	private ICustomerService customerService;
+
+	@RequestMapping("/query")
+	public String query(Customer customer, Model m) {
+		List<CustomerDto> query = customerService.query(customer);
+		m.addAttribute("list", query);
+		return "customer/customer";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Model m){
+		customerService.getSalesManAndCommonInterval(m);
+		return "customer/update_customer";
+	}
+	
+	@RequestMapping("/saveAddOrUpdate")
+	public String saveAddOrUpdate(Customer customer){
+		customerService.addCustomer(customer);
+		return "redirect:customer/query";
+	}
+
+}

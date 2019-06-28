@@ -1,0 +1,97 @@
+package com.zz.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.zz.dto.UserDto;
+import com.zz.mapper.UserMapper;
+import com.zz.pojo.Role;
+import com.zz.pojo.User;
+import com.zz.pojo.UserExample;
+import com.zz.service.IRoleService;
+import com.zz.service.IUserService;
+
+@Service
+public class UserServiceImpl implements IUserService {
+
+	@Autowired
+	private UserMapper userMapper;
+	@Autowired
+	private IRoleService roleService;
+
+	@Override
+	public List<User> query() {
+		UserExample example = new UserExample();
+		return userMapper.selectByExample(example);
+	}
+
+	@Override
+	public Integer addUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.insertSelective(user);
+	}
+
+	@Override
+	public Integer updateUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	public Integer deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public User queryById(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Role> queryRole() {
+		// TODO Auto-generated method stub
+		return roleService.query();
+	}
+
+	@Override
+	public Integer saveUserAndRole(UserDto dto) {
+		// TODO Auto-generated method stub
+		User user = dto.getUser();
+		this.addUser(user);
+		List<Integer> ids = dto.getRoleIds();
+		if (ids != null && ids.size() > 0) {
+			for (Integer roleId : ids) {
+				this.saveUserIdAndRoleId(user.getUserId(), roleId);
+			}
+		}
+
+		return 1;
+	}
+
+	public void saveUserIdAndRoleId(Integer userId, Integer roleId) {
+		// TODO Auto-generated method stub
+		userMapper.saveUserIdAndRoleId(userId, roleId);
+	}
+
+	@Override
+	public List<Role> queryRoleByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return roleService.queryRoleByUserId(userId);
+	}
+
+	@Override
+	public UserDto getUpdateInfo(Integer userId) {
+		// TODO Auto-generated method stub
+		User user = this.queryById(userId);
+		List<Role> roles = this.queryRoleByUserId(userId);
+		UserDto dto = new UserDto();
+		dto.setUser(user);
+		dto.setRoles(roles);
+		return null;
+	}
+
+}

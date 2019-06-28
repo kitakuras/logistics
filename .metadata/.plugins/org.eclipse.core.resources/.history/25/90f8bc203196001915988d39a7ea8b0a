@@ -1,0 +1,43 @@
+package com.zz.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.dto.UserDto;
+import com.zz.pojo.Role;
+import com.zz.pojo.User;
+import com.zz.service.IUserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	@Autowired
+	private IUserService userService;
+
+	@RequestMapping("/query")
+	public String query(Model m) {
+		m.addAttribute("list", userService.query());
+		return "user/user";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Integer userId,Model m) {
+		m.addAttribute("roles",userService.queryRole());
+		if (userId != null) {
+			User user = userService.queryById(userId);
+			List<Role> roles = userService.queryRoleByUserId(userId);
+		}
+		return "user/update_user";
+	}
+	
+	@RequestMapping("/saveAddOrUpdate")
+	public String saveAddOrUpdate(UserDto dto) {
+		Integer count = userService.saveUserAndRole(dto);
+		return "redirect:/user/query";
+	}
+
+}

@@ -1,0 +1,8 @@
+package com.zz.service;
+
+import org.springframework.ui.Model;
+
+public interface IOrderService {
+
+	public void getAddOrUpdateInfo(Model m,Integer orderId);
+}

@@ -1,0 +1,25 @@
+package com.zz.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.zz.mapper.CustomerMapper;
+import com.zz.pojo.Customer;
+import com.zz.pojo.CustomerExample;
+import com.zz.service.ICustomerService;
+
+public class CustomerServiceImpl implements ICustomerService {
+
+	@Autowired
+	private CustomerMapper customerMapper;
+
+	@Override
+	public List<CustomerdDto> query(Customer customer) {
+		// TODO Auto-generated method stub
+		
+		CustomerExample example = new CustomerExample();
+		return customerMapper.selectByExample(example );
+	}
+
+}

@@ -1,0 +1,54 @@
+package com.zz.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.zz.mapper.BasicDataMapper;
+import com.zz.pojo.BasicData;
+import com.zz.pojo.BasicDataExample;
+import com.zz.service.IBasicDataService;
+
+import redis.clients.jedis.JedisPool;
+
+@Service
+public class BasicDataServiceImpl implements IBasicDataService {
+
+	@Autowired
+	private BasicDataMapper bdMapper;
+	@Autowired
+	private JedisPool jedis;
+
+	@Override
+	public List<BasicData> query(BasicData bd) {
+		// TODO Auto-generated method stub
+		BasicDataExample example = new BasicDataExample();
+		return bdMapper.selectByExample(example );
+	}
+
+	@Override
+	public Integer addBasicData(BasicData bd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer updateBasicData(BasicData bd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer deleteBasicData(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BasicData queryById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.zz.service.IRolsService.java&apos; to &apos;IRoleService.java&apos;&#x0D;&#x0A;- Original project: &apos;logistics-manager-service&apos;&#x0D;&#x0A;- Original element: &apos;com.zz.service.IRolsService.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.zz.service.IRoleService.java&apos;" description="Rename compilation unit &apos;IRolsService.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java&lt;com.zz.service{IRolsService.java" name="IRoleService.java" references="false" stamp="1561101091067" version="1.0"/>
+</session>

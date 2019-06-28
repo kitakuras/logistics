@@ -1,0 +1,7 @@
+package com.zz.dto;
+
+import com.zz.pojo.Order;
+
+public class OrderDto extends Order{
+
+}
