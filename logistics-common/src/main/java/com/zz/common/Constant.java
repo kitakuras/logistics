@@ -10,6 +10,7 @@ public class Constant {
 	public static final String BASIC_FREIGHT_TYPE = "货运方式";
 	public static final String BASIC_PAYMENT_TYPE = "付款方式";
 	public static final String BASIC_UNIT = "单位";
+	public static final String BASIC_WAREHOUSE = "仓库";
 	public static final String PAGE_MODEL = "pageModel";
 
 }

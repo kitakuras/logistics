@@ -27,7 +27,6 @@ public class CustomerController {
 	@RequestMapping("/query")
 	public String query(Customer customer, Model m) {
 		List<CustomerDto> query = customerService.query(customer);
-		System.out.println(query);
 		m.addAttribute("list", query);
 		return "customer/customer";
 	}

@@ -1,0 +1,27 @@
+package com.zz.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.service.IOrderService;
+
+@Controller
+@RequestMapping("/warehouse")
+public class WarehouseController {
+
+	@Autowired
+	private IOrderService orderService;
+	
+	@RequestMapping("/query")
+	public String query(Model m){
+		orderService.queryInfo(m);
+		return "warehouse/warehouse";
+	}
+	@RequestMapping("/query")
+	public String goAddOrUpdate(Model m){
+		orderService.queryInfo(m);
+		return "warehouse/warehouse";
+	}
+}

@@ -19,4 +19,7 @@ public interface IBasicDataService {
 	public List<BasicData> queryParentData();
 
 	public List<BasicData> queryBase(String typeName);
+
+	public List<BasicData> queryAll();
+
 }

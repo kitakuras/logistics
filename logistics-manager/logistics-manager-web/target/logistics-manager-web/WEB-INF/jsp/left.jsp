@@ -50,6 +50,9 @@ $(function(){
         <li><cite></cite><a href="/customer/query" target="rightFrame">客户管理</a><i></i></li>
         </shiro:hasAnyRoles>
         <li><cite></cite><a href="/order/goAddOrUpdate" target="rightFrame">新增订单</a><i></i></li>
+         <shiro:hasAnyRoles name="仓管员,操作员,管理员">
+        <li><cite></cite><a href="/warehouse/query" target="rightFrame">核对入库</a><i></i></li>
+        </shiro:hasAnyRoles>
         <li><cite></cite><a href="tools.html" target="rightFrame">常用工具</a><i></i></li>
         <li><cite></cite><a href="filelist.html" target="rightFrame">信息管理</a><i></i></li>
         <li><cite></cite><a href="tab.html" target="rightFrame">Tab页</a><i></i></li>

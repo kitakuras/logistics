@@ -116,4 +116,11 @@ public class BasicDataServiceImpl implements IBasicDataService {
 		return bdMapper.queryByParentBaseName(typeName);
 	}
 
+	@Override
+	public List<BasicData> queryAll() {
+		// TODO Auto-generated method stub
+		BasicDataExample example = new BasicDataExample();
+		return bdMapper.selectByExample(example );
+	}
+
 }

@@ -1,0 +1,35 @@
+package com.zz.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zz.dto.OrderDto;
+import com.zz.service.IOrderService;
+
+@Controller
+@RequestMapping("/warehouse")
+public class WarehouseController {
+
+	@Autowired
+	private IOrderService orderService;
+	
+	@RequestMapping("/query")
+	public String query(Model m){
+		orderService.queryInfo(m);
+		return "warehouse/warehouse";
+	}
+	
+	@RequestMapping("/goAddOrUpdate")
+	public String goAddOrUpdate(Model m,Integer orderId){
+		System.out.println("获取编号："+orderId);
+		orderService.getAddOrUpdateInfo(m, orderId);
+		return "warehouse/update_warehouse";
+	}
+	@RequestMapping("/save")
+	public String save(OrderDto dto){
+		orderService.update(dto);
+		return "redirect:warehouse/warehouse";
+	}
+}
